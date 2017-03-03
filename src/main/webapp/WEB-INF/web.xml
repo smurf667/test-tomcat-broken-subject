@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="demo" version="3.0"
+         metadata-complete="true"
+         xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!-- the security constraints here are necessary so that a container login
+    occurs on a secured server, (except for the resources in the AnonymousResourceCollection below).
+    The fine grained settings are defined in Spring configuration files
+     -->
+    <security-constraint>
+        <display-name>AuthConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>AuthenticatedResourceCollection</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>authenticated users</description>
+            <role-name>Authenticated</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+        <role-name>Authenticated</role-name>
+    </security-role>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>Admin</realm-name>
+    </login-config>
+
+</web-app>

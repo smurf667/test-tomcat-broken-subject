@@ -1,0 +1,4 @@
+// "grant all" policy
+grant {
+  permission java.security.AllPermission;
+};

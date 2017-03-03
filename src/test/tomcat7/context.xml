@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Context>
+    <Realm className="org.apache.catalina.realm.JAASRealm"
+           appName="DemoLogin"
+           userClassNames="com.example.jaas.UserPrincipal"
+           roleClassNames="com.example.jaas.RolePrincipal" />
+</Context>
