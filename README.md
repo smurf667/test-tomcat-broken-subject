@@ -23,6 +23,6 @@ The test should fail, indicating the problem (a number of requests fail with sta
 
 ## What is the issue?
 
-Briefly, Tomcat tries to cache the `Subject` in the user session, but wipes it from the session at the beginning of every request. During requests, the `Subject` may be placed in to the session, and the subject's set of `Principal` objects may have unexpected content.
+Briefly, Tomcat tries to cache the `Subject` in the user session, but wipes it from the session at the beginning of every request. During requests, the `Subject` may be placed into the session, and the subject's set of `Principal` objects may have unexpected content.
 
 More details can be found at TODO link to bug report, once submitted.
