@@ -1,9 +1,8 @@
 # Broken subject caching in Tomcat?
 
-This web application reproduces an issue with the following setup:
+_UPDATE_ the problem has been fixed: https://bz.apache.org/bugzilla/show_bug.cgi?id=60824
 
-- custom login module
-- Spring Security with pre-authenticated scenario
+This web application reproduces an issue with Spring Security with a pre-authenticated scenario.
 
 It is necessary to _activate global security_. The embedded Tomcat is run inside the Maven JVM, thus the following `MAVEN_OPTS` must be set:
 
