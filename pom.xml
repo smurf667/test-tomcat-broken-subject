@@ -85,10 +85,7 @@
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<configuration>
-					<contextFile>src/test/tomcat7/context.xml</contextFile>
-					<systemProperties>
-						<java.security.auth.login.config>${project.basedir}/src/test/tomcat7/jaas.conf</java.security.auth.login.config>
-					</systemProperties>
+					<tomcatUsers>src/test/tomcat7/tomcat-users.xml</tomcatUsers>
 				</configuration>
 				<executions>
 					<execution>

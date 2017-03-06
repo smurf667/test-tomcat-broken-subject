@@ -13,9 +13,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.apache.catalina.realm.GenericPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.filter.GenericFilterBean;
-
-import com.example.jaas.UserPrincipal;
 
 public class SubjectVerifierFilter extends GenericFilterBean {
 
@@ -27,25 +26,29 @@ public class SubjectVerifierFilter extends GenericFilterBean {
 		}
 		
 		Set<Principal> principals = subject.getPrincipals();
-		boolean myPrincipalFound =
+		if (principals.isEmpty()) {
+			throw new IllegalStateException("empty principal set");
+		}
+		boolean springPrincipalFound =
 			principals
 			.stream()
-			.anyMatch(isCustomPrincipal);
+			.anyMatch(isSpringPrincipal);
 
-		if (!myPrincipalFound) {
-			throw new IllegalStateException("Custom user principal not found in subject. Principals seen: " + principals);
+		if (springPrincipalFound && principals.size() == 1) {
+			// this is an error, there must always be a Tomcat-managed principal 
+			throw new IllegalStateException("Only Spring principal found in subject.");
 		}
-		
+
 		chain.doFilter(request, response);
 	}
 
 	// is this our custom principal?
-	private final Predicate<Principal> isCustomPrincipal = (principal) -> {
+	private final Predicate<Principal> isSpringPrincipal = (principal) -> {
 		if (principal instanceof GenericPrincipal) {
-			// sometimes we're getting wrapped into a "GenericPrincipal"
-			return ((GenericPrincipal) principal).getUserPrincipal() instanceof UserPrincipal;
+			// actual principal got a wrapped into a "GenericPrincipal"
+			return ((GenericPrincipal) principal).getUserPrincipal() instanceof Authentication;
 		}
-		return principal instanceof UserPrincipal;
+		return principal instanceof Authentication;
 	};
 
 }
