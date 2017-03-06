@@ -29,7 +29,7 @@ More details can be found at https://bz.apache.org/bugzilla/show_bug.cgi?id=6082
 
 ## Suggested fix
 
-We tested with the following patched version of `` and found this to reliably fix the issue:
+We tested with the following patched version of `org.apache.catalina.connector.Request` and found this to reliably fix the issue:
 
 ~~~~
 public void setUserPrincipal(final Principal principal) {
